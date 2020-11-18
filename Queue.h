@@ -1,4 +1,8 @@
 //GenQueue.h
+//Patrick Polcuch
+//2348668
+
+//My generic queue I made for my CPSC350 class. 
 #include "list.h"
 
 template <class type>

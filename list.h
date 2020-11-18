@@ -1,4 +1,8 @@
 //list.h
+//Patrick Polcuch
+//2348668
+
+//used to make my linked list use the functions of the list ADT
 #include "LinkedList.h"
 
 template <class type>

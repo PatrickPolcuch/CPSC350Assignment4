@@ -1,5 +1,9 @@
 //main.cpp
+//Patrick Polcuch
+//2348668
+//CPSC350Assignment4
 
+//The main part of my assignment. Does all of the computing.
 #include "Queue.h"
 #include "student.h"
 #include <fstream>
@@ -54,6 +58,8 @@ int main(int argc,char** argv){
 
   int *windowsArr = new int[windowsOpen];
   int *windowWaitArr = new int[windowsOpen];
+  int *studentTimes = new int[numStudents];
+  int studentTimesPos = 0;
 
   for(int i = 0; i<windowsOpen; ++i){//set all to 0
     windowsArr[i] = 0;
@@ -67,7 +73,7 @@ int main(int argc,char** argv){
         windowsArr[i] -= 1;
       }
     }
-    
+
     while(true){//moves students to windows
       if(line->isEmpty()){
         break;
@@ -85,6 +91,8 @@ int main(int argc,char** argv){
             if(currTick-nextStu->timeAr > 10){
               studentWaitTen++;
             }
+            studentTimes[studentTimesPos] = currTick-nextStu->timeAr;
+            studentTimesPos++;
             break;//student sucessfully placed at a window
           }
         }
@@ -121,17 +129,30 @@ int main(int argc,char** argv){
     }
   }
 
+for(int i = 0; i <numStudents-1;++i){//sorts the student wait times so we can find the median
+  for(int j = i; j < numStudents-1; ++j){
+    if(studentTimes[j]>studentTimes[j+1]){
+      int temp = studentTimes[j];
+      studentTimes[j] = studentTimes[j+1];
+      studentTimes[j+1] = temp;
+    }else{
+      break;
+    }
+  }
+}
 
 
   cout<<"1. The mean student wait time : "<<totStudentWait/numStudents<<endl;
-  cout<<"2. The median student wait time : "<<endl;
+  cout<<"2. The median student wait time : "<<studentTimes[numStudents/2]<<endl;
   cout<<"3. The longest student wait time : "<<longestStudentWait<<endl;
   cout<<"4. The number of students waiting over 10 minutes: "<<studentWaitTen<<endl;
   cout<<"5. The mean window idle time: "<<totWindowWait/windowsOpen<<endl;
   cout<<"6. The longest window idle time: "<<longestWindowWait<<endl;
   cout<<"7. Number of windows idle for over 5 minutes: "<<windowWaitFive                     <<endl;
 
-
+  delete windowsArr;
+  delete windowWaitArr;
+  delete studentTimes;
   delete line;
   return 0;
 }

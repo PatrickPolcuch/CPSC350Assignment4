@@ -1,4 +1,7 @@
 //LinkedList.h
+//Patrick Polcuch
+//2348668
+//Made this for CPSC350. Its a generic linked list 
 
 #include <iostream>
 #include <cstddef>//have to use this to use NULL
